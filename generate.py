@@ -1,13 +1,14 @@
 import csv
 import json
 
-# Function to convert CSV to JSON
+# Function to convert CSV to JSON with consistent casing and trimmed spaces
 def csv_to_json(csv_file_path):
     data = []
     with open(csv_file_path, mode='r') as csvfile:
         csvreader = csv.DictReader(csvfile)
         for row in csvreader:
-            data.append(row)
+            processed_row = {key.strip().lower(): value.strip() for key, value in row.items()}
+            data.append(processed_row)
     return json.dumps(data, indent=4)
 
 # Function to embed JSON data into HTML
@@ -55,7 +56,7 @@ def embed_json_in_html(json_data, html_file_path):
         // Find the column to search in (first column)
         const searchColumn = keys[0];
 
-        const results = data.filter(item => searchValues.includes(item[searchColumn].toString().toLowerCase()));
+        const results = data.filter(item => searchValues.some(value => (item[searchColumn] || "").toString().toLowerCase().includes(value)));
 
         const resultDiv = document.getElementById('search-result');
         resultDiv.innerHTML = ''; // Clear previous results
@@ -119,7 +120,7 @@ def embed_json_in_html(json_data, html_file_path):
 
 # Example usage
 csv_file_path = 'data.csv'  # Path to your CSV file
-html_file_path = 'index.html'  # Path to your output HTML file
+html_file_path = 'output.html'  # Path to your output HTML file
 
 # Convert CSV to JSON
 json_data = csv_to_json(csv_file_path)
