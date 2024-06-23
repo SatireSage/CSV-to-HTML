@@ -120,7 +120,7 @@ def embed_json_in_html(json_data, html_file_path):
 
 # Example usage
 csv_file_path = 'data.csv'  # Path to your CSV file
-html_file_path = 'output.html'  # Path to your output HTML file
+html_file_path = 'index.html'  # Path to your output HTML file
 
 # Convert CSV to JSON
 json_data = csv_to_json(csv_file_path)
