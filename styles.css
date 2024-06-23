@@ -50,11 +50,13 @@ h1 {
 
 #search-result {
     margin-top: 20px;
+    overflow-x: auto; /* Enable horizontal scrolling */
 }
 
 table.dataTable {
     width: 100%;
     border-collapse: collapse;
+    table-layout: auto; /* Make table responsive */
 }
 
 table.dataTable thead th {
@@ -74,5 +76,68 @@ table.dataTable tbody tr:nth-child(even) {
 table.dataTable tbody td {
     padding: 10px;
     border: 1px solid #dee2e6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .input-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .input-group input[type="text"], .input-group button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .input-group button {
+        margin-left: 0;
+    }
+
+    table.dataTable {
+        display: block; /* Display table as block on smaller screens */
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    table.dataTable thead, table.dataTable tbody, table.dataTable th, table.dataTable td, table.dataTable tr {
+        display: block; /* Ensure all table elements are block level */
+    }
+
+    table.dataTable thead {
+        float: left;
+    }
+
+    table.dataTable tbody {
+        width: auto;
+        position: relative;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    table.dataTable thead tr {
+        display: none; /* Hide table headers on small screens */
+    }
+
+    table.dataTable tbody td {
+        display: inline-block;
+        width: 100%;
+        white-space: nowrap;
+        text-align: left;
+        position: relative;
+        padding-left: 50%; /* Space for labels */
+        box-sizing: border-box;
+    }
+
+    table.dataTable tbody td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%; /* Label width */
+        padding-left: 10px;
+        font-weight: bold;
+        box-sizing: border-box;
+        white-space: nowrap;
+    }
 }
 

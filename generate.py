@@ -93,6 +93,7 @@ def embed_json_in_html(json_data, html_file_path):
                 keys.forEach(key => {{
                     const td = document.createElement('td');
                     td.textContent = result[key];
+                    td.setAttribute('data-label', key);
                     dataRow.appendChild(td);
                 }});
                 tbody.appendChild(dataRow);
