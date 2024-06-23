@@ -161,6 +161,13 @@ def embed_encrypted_data_in_html(encrypted_data, html_file_path):
         }}
     }}
 
+    // Add event listener to trigger decryption on Enter key press
+    document.getElementById('key-input').addEventListener('keyup', function(event) {{
+        if (event.key === 'Enter') {{
+            decryptData();
+        }}
+    }});
+
     // Add event listener to trigger search on Enter key press
     document.getElementById('search-input').addEventListener('keyup', function(event) {{
         if (event.key === 'Enter') {{
