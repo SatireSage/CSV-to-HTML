@@ -1,4 +1,4 @@
-<!DOCTYPE htm<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
 <h1>CSV Data Display</h1>
 
 <div>
-    <label for="search-input">Enter Name:</label>
+    <label for="search-input">Enter Name(s) (comma separated):</label>
     <input type="text" id="search-input">
     <button onclick="searchData()">Search</button>
 </div>
@@ -38,12 +38,13 @@
     // Function to search data based on input
     function searchData() {
         const input = document.getElementById('search-input').value;
-        const result = data.find(item => item.Name.toLowerCase() === input.toLowerCase());
+        const names = input.split(',').map(name => name.trim().toLowerCase());
+        const results = data.filter(item => names.includes(item.Name.toLowerCase()));
 
         const resultDiv = document.getElementById('search-result');
         resultDiv.innerHTML = ''; // Clear previous results
 
-        if (result) {
+        if (results.length > 0) {
             const table = document.createElement('table');
             table.id = 'result-table';
             table.className = 'display';
@@ -52,7 +53,7 @@
             const headerRow = document.createElement('tr');
 
             // Create table header
-            for (const key in result) {
+            for (const key in results[0]) {
                 const th = document.createElement('th');
                 th.textContent = key;
                 headerRow.appendChild(th);
@@ -61,13 +62,15 @@
             table.appendChild(thead);
 
             // Create table body
-            const dataRow = document.createElement('tr');
-            for (const key in result) {
-                const td = document.createElement('td');
-                td.textContent = result[key];
-                dataRow.appendChild(td);
-            }
-            tbody.appendChild(dataRow);
+            results.forEach(result => {
+                const dataRow = document.createElement('tr');
+                for (const key in result) {
+                    const td = document.createElement('td');
+                    td.textContent = result[key];
+                    dataRow.appendChild(td);
+                }
+                tbody.appendChild(dataRow);
+            });
             table.appendChild(tbody);
 
             resultDiv.appendChild(table);
