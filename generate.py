@@ -1,13 +1,24 @@
 import csv
 import json
+import re
 
 # Function to convert CSV to JSON with consistent casing and trimmed spaces
 def csv_to_json(csv_file_path):
+    def clean_value(value):
+        if value is None:
+            return ""
+        # Remove surrounding quotes if present
+        value = re.sub(r'^"|"$', '', value.strip())
+        return value
+
     data = []
     with open(csv_file_path, mode='r') as csvfile:
         csvreader = csv.DictReader(csvfile)
         for row in csvreader:
-            processed_row = {key.strip().lower(): value.strip() for key, value in row.items()}
+            processed_row = {
+                re.sub(r'^"|"$', '', key.strip().lower() if key else key): clean_value(value)
+                for key, value in row.items()
+            }
             data.append(processed_row)
     return json.dumps(data, indent=4)
 
