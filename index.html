@@ -7,7 +7,7 @@
     <title>CSV Data Display</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="path/to/your/logo.ico" type="image/x-icon">
+    <link rel="icon" href="logo.ico" type="image/x-icon">
 </head>
 <body>
 
@@ -15,208 +15,65 @@
 
 <div class="container">
     <div class="input-group">
-        <input type="text" id="search-input" placeholder="Enter Search Values (comma separated)">
-        <button onclick="searchData()">Search</button>
+        <input type="password" id="key-input" placeholder="Enter decryption key">
+        <button onclick="decryptData()">Decrypt</button>
     </div>
 
-    <div id="search-result">
-        <!-- Search results will be displayed here -->
+    <div id="search-section" style="display:none;">
+        <div class="input-group">
+            <input type="text" id="search-input" placeholder="Enter Search Values (comma separated)">
+            <button onclick="searchData()">Search</button>
+        </div>
+        <div id="search-result">
+            <!-- Search results will be displayed here -->
+        </div>
     </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 <script>
-    // Embedded JSON data
-    const data = [
-    {
-        "last name": "Alfalfa",
-        "first name": "Aloysius",
-        "ssn": "123-45-6789",
-        "test1": "40.0",
-        "test2": "90.0",
-        "test3": "100.0",
-        "test4": "83.0",
-        "final": "49.0",
-        "grade": "D-"
-    },
-    {
-        "last name": "Alfred",
-        "first name": "University",
-        "ssn": "123-12-1234",
-        "test1": "41.0",
-        "test2": "97.0",
-        "test3": "96.0",
-        "test4": "97.0",
-        "final": "48.0",
-        "grade": "D+"
-    },
-    {
-        "last name": "Gerty",
-        "first name": "Gramma",
-        "ssn": "567-89-0123",
-        "test1": "41.0",
-        "test2": "80.0",
-        "test3": "60.0",
-        "test4": "40.0",
-        "final": "44.0",
-        "grade": "C"
-    },
-    {
-        "last name": "Android",
-        "first name": "Electric",
-        "ssn": "087-65-4321",
-        "test1": "42.0",
-        "test2": "23.0",
-        "test3": "36.0",
-        "test4": "45.0",
-        "final": "47.0",
-        "grade": "B-"
-    },
-    {
-        "last name": "Bumpkin",
-        "first name": "Fred",
-        "ssn": "456-78-9012",
-        "test1": "43.0",
-        "test2": "78.0",
-        "test3": "88.0",
-        "test4": "77.0",
-        "final": "45.0",
-        "grade": "A-"
-    },
-    {
-        "last name": "Rubble",
-        "first name": "Betty",
-        "ssn": "234-56-7890",
-        "test1": "44.0",
-        "test2": "90.0",
-        "test3": "80.0",
-        "test4": "90.0",
-        "final": "46.0",
-        "grade": "C-"
-    },
-    {
-        "last name": "Noshow",
-        "first name": "Cecil",
-        "ssn": "345-67-8901",
-        "test1": "45.0",
-        "test2": "11.0",
-        "test3": "-1.0",
-        "test4": "4.0",
-        "final": "43.0",
-        "grade": "F"
-    },
-    {
-        "last name": "Buff",
-        "first name": "Bif",
-        "ssn": "632-79-9939",
-        "test1": "46.0",
-        "test2": "20.0",
-        "test3": "30.0",
-        "test4": "40.0",
-        "final": "50.0",
-        "grade": "B+"
-    },
-    {
-        "last name": "Airpump",
-        "first name": "Andrew",
-        "ssn": "223-45-6789",
-        "test1": "49.0      1.0",
-        "test2": "90.0",
-        "test3": "100.0",
-        "test4": "83.0",
-        "final": "A",
-        "grade": ""
-    },
-    {
-        "last name": "Backus",
-        "first name": "Jim",
-        "ssn": "143-12-1234",
-        "test1": "48.0",
-        "test2": "1.0",
-        "test3": "97.0",
-        "test4": "96.0",
-        "final": "97.0",
-        "grade": "A+"
-    },
-    {
-        "last name": "Carnivore",
-        "first name": "Art",
-        "ssn": "565-89-0123",
-        "test1": "44.0",
-        "test2": "1.0",
-        "test3": "80.0",
-        "test4": "60.0",
-        "final": "40.0",
-        "grade": "D+"
-    },
-    {
-        "last name": "Dandy",
-        "first name": "Jim",
-        "ssn": "087-75-4321",
-        "test1": "47.0",
-        "test2": "1.0",
-        "test3": "23.0",
-        "test4": "36.0",
-        "final": "45.0",
-        "grade": "C+"
-    },
-    {
-        "last name": "Elephant",
-        "first name": "Ima",
-        "ssn": "456-71-9012",
-        "test1": "45.0",
-        "test2": "1.0",
-        "test3": "78.0",
-        "test4": "88.0",
-        "final": "77.0",
-        "grade": "B-"
-    },
-    {
-        "last name": "Franklin",
-        "first name": "Benny",
-        "ssn": "234-56-2890",
-        "test1": "50.0",
-        "test2": "1.0",
-        "test3": "90.0",
-        "test4": "80.0",
-        "final": "90.0",
-        "grade": "B-"
-    },
-    {
-        "last name": "George",
-        "first name": "Boy",
-        "ssn": "345-67-3901",
-        "test1": "40.0",
-        "test2": "1.0",
-        "test3": "11.0",
-        "test4": "-1.0",
-        "final": "4.0",
-        "grade": "B"
-    },
-    {
-        "last name": "Heffalump",
-        "first name": "Harvey",
-        "ssn": "632-79-9439",
-        "test1": "30.0",
-        "test2": "1.0",
-        "test3": "20.0",
-        "test4": "30.0",
-        "final": "40.0",
-        "grade": "C"
+    // Encrypted JSON data
+    const encryptedData = "{\"iv\": \"gNo2rXRdHrnsAtVoy0V0GA==\", \"ciphertext\": \"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\"}";
+
+    // Function to decrypt data
+    function decryptData() {
+        const key = document.getElementById('key-input').value;
+        try {
+            const decryptedData = JSON.parse(decrypt(encryptedData, key));
+            window.data = decryptedData; // Set the decrypted data globally
+            document.getElementById('search-section').style.display = 'block';
+        } catch (e) {
+            alert('Invalid key or data could not be decrypted.');
+        }
     }
-];
+
+    // Decrypt function
+    function decrypt(encrypted, key) {
+        const parsedData = JSON.parse(encrypted);
+        const iv = CryptoJS.enc.Base64.parse(parsedData.iv);
+        const ciphertext = CryptoJS.enc.Base64.parse(parsedData.ciphertext);
+        const decrypted = CryptoJS.AES.decrypt({
+            ciphertext: ciphertext
+        }, CryptoJS.enc.Utf8.parse(key.padEnd(32)), {
+            iv: iv,
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        return decrypted.toString(CryptoJS.enc.Utf8);
+    }
 
     // Function to search data based on input
     function searchData() {
         const input = document.getElementById('search-input').value;
         const searchValues = input.split(',').map(value => value.trim().toLowerCase());
-        const keys = Object.keys(data[0]);
+        const keys = Object.keys(window.data[0]);
 
         // Find the column to search in (first column)
         const searchColumn = keys[0];
 
-        const results = data.filter(item => searchValues.some(value => (item[searchColumn] || "").toString().toLowerCase().includes(value)));
+        const results = window.data.filter(item => searchValues.some(value => (item[searchColumn] || "").toString().toLowerCase().includes(value)));
 
         const resultDiv = document.getElementById('search-result');
         resultDiv.innerHTML = ''; // Clear previous results
@@ -259,6 +116,13 @@
             resultDiv.textContent = 'No matching data found.';
         }
     }
+
+    // Add event listener to trigger decryption on Enter key press
+    document.getElementById('key-input').addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+            decryptData();
+        }
+    });
 
     // Add event listener to trigger search on Enter key press
     document.getElementById('search-input').addEventListener('keyup', function(event) {
