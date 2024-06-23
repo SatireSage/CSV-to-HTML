@@ -7,7 +7,7 @@
     <title>CSV Data Display</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="logo.ico" type="image/x-icon">
+    <link rel="icon" href="path/to/your/logo.ico" type="image/x-icon">
 </head>
 <body>
 
@@ -244,6 +244,7 @@
                 keys.forEach(key => {
                     const td = document.createElement('td');
                     td.textContent = result[key];
+                    td.setAttribute('data-label', key);
                     dataRow.appendChild(td);
                 });
                 tbody.appendChild(dataRow);
