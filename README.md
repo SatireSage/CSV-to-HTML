@@ -25,7 +25,7 @@ This project converts CSV data to JSON format and embeds it into an HTML file fo
 ```python
 # Example usage
 csv_file_path = 'data.csv'  # Path to your CSV file
-html_file_path = 'output.html'  # Path to your output HTML file
+html_file_path = 'index.html'  # Path to your output HTML file
 
 # Convert CSV to JSON
 json_data = csv_to_json(csv_file_path)
@@ -38,7 +38,7 @@ embed_json_in_html(json_data, html_file_path)
 
 1. Save the provided text as `README.md`.
 2. Ensure you have the `generate.py` script and `styles.css` file in your project directory.
-3. Download sample CSV files from [John Burkardt's website](https://people.sc.fsu.edu/~jburkardt/data/csv/csv.html) and place them in your project directory for testing.
+3. Download sample CSV files from [JBurkardt's website](https://people.sc.fsu.edu/~jburkardt/data/csv/csv.html) and place them in your project directory for testing.
 
 This README file provides comprehensive instructions for using the project, including acknowledgments and references.
 
