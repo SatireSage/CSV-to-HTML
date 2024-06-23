@@ -16,7 +16,7 @@
 <h1>CSV Data Display</h1>
 
 <div>
-    <label for="search-input">Enter Name(s) (comma separated):</label>
+    <label for="search-input">Enter Search Values (comma separated):</label>
     <input type="text" id="search-input">
     <button onclick="searchData()">Search</button>
 </div>
@@ -30,16 +30,21 @@
 <script>
     // Embedded JSON data
     const data = [
-        { "Name": "Alice", "Age": 30, "City": "New York" },
-        { "Name": "Bob", "Age": 25, "City": "Los Angeles" },
-        { "Name": "Charlie", "Age": 35, "City": "Chicago" }
+        { "ID": "101", "Name": "Alice", "Age": 30, "City": "New York" },
+        { "ID": "102", "Name": "Bob", "Age": 25, "City": "Los Angeles" },
+        { "ID": "103", "Name": "Charlie", "Age": 35, "City": "Chicago" }
     ];
 
     // Function to search data based on input
     function searchData() {
         const input = document.getElementById('search-input').value;
-        const names = input.split(',').map(name => name.trim().toLowerCase());
-        const results = data.filter(item => names.includes(item.Name.toLowerCase()));
+        const searchValues = input.split(',').map(value => value.trim().toLowerCase());
+        const keys = Object.keys(data[0]);
+
+        // Find the column to search in (first column)
+        const searchColumn = keys[0];
+
+        const results = data.filter(item => searchValues.includes(item[searchColumn].toString().toLowerCase()));
 
         const resultDiv = document.getElementById('search-result');
         resultDiv.innerHTML = ''; // Clear previous results
@@ -53,22 +58,22 @@
             const headerRow = document.createElement('tr');
 
             // Create table header
-            for (const key in results[0]) {
+            keys.forEach(key => {
                 const th = document.createElement('th');
                 th.textContent = key;
                 headerRow.appendChild(th);
-            }
+            });
             thead.appendChild(headerRow);
             table.appendChild(thead);
 
             // Create table body
             results.forEach(result => {
                 const dataRow = document.createElement('tr');
-                for (const key in result) {
+                keys.forEach(key => {
                     const td = document.createElement('td');
                     td.textContent = result[key];
                     dataRow.appendChild(td);
-                }
+                });
                 tbody.appendChild(dataRow);
             });
             table.appendChild(tbody);
