@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #7A003C; /* SFU Red */
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.input-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.input-group input[type="text"] {
+    width: 60%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.input-group button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #7A003C; /* SFU Red */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.input-group button:hover {
+    background-color: #99004d; /* Darker shade of SFU Red */
+}
+
+#search-result {
+    margin-top: 20px;
+}
+
+table.dataTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.dataTable thead th {
+    background-color: #2D3033; /* SFU Gray */
+    color: white;
+    padding: 10px;
+}
+
+table.dataTable tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+table.dataTable tbody tr:nth-child(even) {
+    background-color: #e9ecef;
+}
+
+table.dataTable tbody td {
+    padding: 10px;
+    border: 1px solid #dee2e6;
+}
+

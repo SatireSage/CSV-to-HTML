@@ -21,24 +21,22 @@ def embed_json_in_html(json_data, html_file_path):
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSV Data Display</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <style>
-        #search-result {{
-            margin-top: 20px;
-        }}
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="logo.ico" type="image/x-icon">
 </head>
 <body>
 
 <h1>CSV Data Display</h1>
 
-<div>
-    <label for="search-input">Enter Search Values (comma separated):</label>
-    <input type="text" id="search-input">
-    <button onclick="searchData()">Search</button>
-</div>
+<div class="container">
+    <div class="input-group">
+        <input type="text" id="search-input" placeholder="Enter Search Values (comma separated)">
+        <button onclick="searchData()">Search</button>
+    </div>
 
-<div id="search-result">
-    <!-- Search results will be displayed here -->
+    <div id="search-result">
+        <!-- Search results will be displayed here -->
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
