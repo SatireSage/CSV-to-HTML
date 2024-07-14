@@ -117,7 +117,7 @@ def embed_encrypted_data_in_html(encrypted_data, html_file_path):
         // Find the column to search in (first column)
         const searchColumn = keys[0];
 
-        const results = window.data.filter(item => searchValues.some(value => (item[searchColumn] || "").toString().toLowerCase().includes(value)));
+        const results = window.data.filter(item => searchValues.some(value => (item[searchColumn] || "").toString().toLowerCase() === value));
 
         const resultDiv = document.getElementById('search-result');
         resultDiv.innerHTML = ''; // Clear previous results
